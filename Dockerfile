@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED 1
 COPY ./requirements.txt /tmp/requirements.txt
 
 # We are going to copy it to the temp directory so that we have it available during the build phase
-COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+# COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 
 # copy the app directory inside the app directory in the container
 COPY ./app /app
@@ -29,7 +29,7 @@ EXPOSE 8000
 #This defines a build argument called dev and sets the default value to false. We're overriding this, inside our docker compose file by specifying args dev=true. So when we
 # use this docker file through this docker compose configuration, it's going to update this dev to true whereas when we use it in any docker compose configuration, it's going
 # to leave it as false. 
-ARG DEV=false
+# ARG DEV=false
 
 
 
@@ -42,9 +42,7 @@ RUN python -m venv /py &&\
     /py/bin/pip install --upgrade pip &&\
 # install the requirements.txt file that we copied in the line13    the if statement is the shell scripting language
     /py/bin/pip install -r /tmp/requirements.txt &&\
-    if [$DEV = "true"]; \
-        then /py/bin/pip install -r /tmp/requirements.dev.txt ;\
-    fi && \    
+    
 # remove the tmp directory bcoz we don't want any extra dependencies on our image    
     rm -rf /tmp &&\
 # It calls the ADD User Command, which adds a new user inside our image. It is the best practice not to use the root user. If we didn't specify this, then the only user 

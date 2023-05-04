@@ -15,8 +15,8 @@ services:
       context: .
 
       #this line says if we're running using the docker compose, which we're only going to be using for development, build argument called dev and set it to true
-      args:
-        - DEV=true
+      # args:
+      #   - DEV=true
 
 
   #Port mappings. So this maps port 8000 on our local machine to port 8000 inside our docker container. This is how we can access the network when we want to connect to our server,
