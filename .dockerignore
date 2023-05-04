@@ -1,0 +1,34 @@
+# It allows us to specify a list of files that are going to be excluded from the docker context. So when you run the docker image, it uses something called the docker context,
+# which is the directory that you're running from. And all of the files are passed into the context except for the files that you list in docker ignore. So in this file we want to
+# exclude any files that docker doesn't need to be concerned with. So that's the file we want to exclude from our docker file and from whenever we run our docker commands.
+
+
+# GIT
+
+# .git is a hidden directory for git. We don't need that copied into our docker file that can actually be quite huge because it contains all the git history.
+.git
+.gitignore
+
+# DOCKER
+
+# It is a docker hiddenfile that might be created in our project that doesn't need to be used by our actual docker file.So it just contains working files that i used specifically on our local machine.
+# They don't need to be copied into our docker image when we build it.
+.docker
+
+# PYTHON
+
+# When you run a python code, it creates a cache and it puts that into __pycache__. This isn't needed inside our docker container and in fact it can actually create problems
+# if it does because the __pycache__ that would be created on our local machine would may be specifically for our operating system and not for the alpine os. '*' is used 
+# for that all the different __pycache__ files may be removed. Unfortunately, the docker ignore file doesn't support things like doing double * to do all subdirectories. So 
+# you need to specify each subdirectory individually, which is what i've done here.
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
+
+
+
+

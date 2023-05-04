@@ -1,0 +1,5 @@
+Django>=3.2.4,<3.3  #it tells pip to install the django of the given version. In this .4 is the patch version.It make sure that the patch version is always updated to the latest version whenvever we build containers.
+                    #So if they were to release 0.5, so 3.2.5, when we rebuild our container, it will automatically install that version. It ensures we get the latest bug fixes and security fixes in the project while preventing it from upgrading to the next minor version.
+                    #   So why not upgraded to 3.3 because there may be some breaking changes in the release, which means we want to have the change to go through and fix all those changes and 
+                    #   and test that code before we upgrade it.
+djangorestframework>=3.12.4,<3.13
