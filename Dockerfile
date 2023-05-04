@@ -42,7 +42,6 @@ RUN python -m venv /py &&\
     /py/bin/pip install --upgrade pip &&\
 # install the requirements.txt file that we copied in the line13    the if statement is the shell scripting language
     /py/bin/pip install -r /tmp/requirements.txt &&\
-    
 # remove the tmp directory bcoz we don't want any extra dependencies on our image    
     rm -rf /tmp &&\
 # It calls the ADD User Command, which adds a new user inside our image. It is the best practice not to use the root user. If we didn't specify this, then the only user 
