@@ -40,10 +40,14 @@ EXPOSE 8000
 RUN python -m venv /py &&\  
 # upgrade the pip inside our virtual env
     /py/bin/pip install --upgrade pip &&\
+    apk add --update --no-cache postgresql-client &&\
+    apk add --update --no-cache --virtual .tmp-build-deps\
+        build-base postgresql-dev musl-dev &&\
 # install the requirements.txt file that we copied in the line13    the if statement is the shell scripting language
     /py/bin/pip install -r /tmp/requirements.txt &&\
 # remove the tmp directory bcoz we don't want any extra dependencies on our image    
     rm -rf /tmp &&\
+    apk del .tmp-build-deps &&\
 # It calls the ADD User Command, which adds a new user inside our image. It is the best practice not to use the root user. If we didn't specify this, then the only user 
 # available inside the alpine image that we're using would be the root user. The root user is the user that has full access and permissions to do everything on the server
 # so anything that you can do can be done by the root user. It has no restrictions and limitations.     

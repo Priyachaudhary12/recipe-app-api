@@ -3,3 +3,4 @@ Django>=3.2.4,<3.3  #it tells pip to install the django of the given version. In
                     #   So why not upgraded to 3.3 because there may be some breaking changes in the release, which means we want to have the change to go through and fix all those changes and 
                     #   and test that code before we upgrade it.
 djangorestframework>=3.12.4,<3.13
+psycopg2>=2.8.6,<2.9

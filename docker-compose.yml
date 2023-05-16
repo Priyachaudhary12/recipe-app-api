@@ -35,4 +35,35 @@ services:
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
 
+    environment:
+    # hostname of the database coz we're using docker compose, we can use the name of the service as the hostname so db is the name of the service that's going to be 
+    # the hostname we connect to
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+# This tells the docker compose that the app service depends on db service. So it will try and wait for the DB service to start before it starts the app services and if
+# the db service fails then it will automatically assume that app is going to fail and it shuts down the app service
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgres/data
+
+    # It sets 3 environment variables. POSTGRES_DB is to set the initial database configuration for our new DB service. So when our db first starts, it's going to create a 
+    # database and a named inside db called devdb and then it's going to create a user and set the password. This is just the details for our local development server. 
+    # This is not what we're going to be using if we were deploy this to an actual server that's running coz if that's the case, then you shouldn't be hard coding real credentials 
+    # inside your source code.
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+volumes:
+  # name of our volume. It is just going to store it in the default location on the file system that it does for the name volumes
+  dev-db-data:
+
     
+#Now we need to add similar environment variables to our app service and this is going to tell our app how to connect to the database and we're going to be configuring Django
+# a bit later to pulling these values and use them for the databse connection
