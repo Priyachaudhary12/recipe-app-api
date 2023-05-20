@@ -62,5 +62,6 @@ RUN python -m venv /py &&\
 ENV PATH="/py/bin:$PATH"
 
 
-#So this is the last line of dockerfile and this specifies the user that we're switching to
+#So this is the last line of dockerfile and this specifies the user that we're switching to. If we do not specify this line it uses root user as the user and it is not the secured way
+
 USER django-user

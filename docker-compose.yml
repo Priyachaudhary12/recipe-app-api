@@ -33,7 +33,9 @@ services:
   #So this is the command that's used to run the services. We can override the command when we run Docker compose run. However, by default, if we don't specify a command, it's
   # going to use the command we define inside our docker compose file  
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
 
     environment:
     # hostname of the database coz we're using docker compose, we can use the name of the service as the hostname so db is the name of the service that's going to be 
@@ -65,5 +67,6 @@ volumes:
   dev-db-data:
 
     
-#Now we need to add similar environment variables to our app service and this is going to tell our app how to connect to the database and we're going to be configuring Django
+# Now we need to add similar environment variables to our app service and this is going to tell our app how to connect to the database and we're going to be configuring Django
 # a bit later to pulling these values and use them for the databse connection
+
